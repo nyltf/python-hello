@@ -1,17 +1,12 @@
-import dash
+from flask import Flask, render_template
 import os
 from wsgiref.simple_server import make_server
 
-app = dash.Dash(__name__)
-
-def hello_world():
-    name = os.environ.get('NAME')
-    if name == None or len(name) == 0:
-        name = "world"
-    message = "Hello, " + name + "!\n"
-    return str(message)
-
-app.layout = dash.html.Div(hello_world())
+app = Flask(__name__, template_folder = '', static_folder = '')
+            
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT"))
